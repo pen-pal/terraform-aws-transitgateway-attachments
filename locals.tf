@@ -1,9 +1,5 @@
 locals {
   # List of maps with key and route values
-  vpc_attachments_with_routes = chunklist(flatten([
-    for k, v in var.vpc_attachments : setproduct([{ key = k }], v.tgw_routes)
-  ]), 2)
-
   tgw_default_route_table_tags_merged = merge(
     var.tags,
     { Name = var.name },
