@@ -5,7 +5,7 @@
 resource "aws_ec2_transit_gateway_vpc_attachment" "this" {
   for_each = var.vpc_attachments
 
-  transit_gateway_id = var.create_tgw ? aws_ec2_transit_gateway.this[0].id : each.value.tgw_id
+  transit_gateway_id = each.value.tgw_id
   vpc_id             = each.value.vpc_id
   subnet_ids         = each.value.subnet_ids
 
@@ -27,15 +27,9 @@ resource "aws_route" "this" {
 
   route_table_id         = each.key
   destination_cidr_block = each.value
-  transit_gateway_id     = aws_ec2_transit_gateway.this[0].id
+  transit_gateway_id     = var.vpc_attachments.vpc.tgw_id
 }
 
-tgw_routes = [
-  {
-    destination_cidr_block = "30.0.0.0/16"
-  },
-  {
-    blackhole              = true
-    destination_cidr_block = "40.0.0.0/20"
-  }
-]
+output "a" {
+  value = concat(["rtb-021235845d7cd3aee", "rtb-09dcc2c01c98feb25"], ["rtb-0758819b393182213", "rtb-061b4ece1d1d61466"])
+}

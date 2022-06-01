@@ -13,13 +13,6 @@ variable "tags" {
 ################################################################################
 # Transit Gateway
 ################################################################################
-
-variable "create_tgw" {
-  description = "Controls if TGW should be created (it affects almost all resources)"
-  type        = bool
-  default     = true
-}
-
 variable "description" {
   description = "Description of the EC2 Transit Gateway"
   type        = string
